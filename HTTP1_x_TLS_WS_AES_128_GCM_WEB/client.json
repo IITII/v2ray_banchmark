@@ -1,0 +1,119 @@
+{
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "tag": "proxy",
+      "port": 10809,
+      "listen": "0.0.0.0",
+      "protocol": "http",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
+    {
+      "port": 10808,
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "n3kr.google.com",
+            "port": 443,
+            "users": [
+              {
+                "id": "3d1deab2-89f6-c1a7-18a9-207bf8effcc0",
+                "alterId": 0,
+                "email": "t@t.tt",
+                "security": "aes-128-gcm"
+              }
+            ]
+          }
+        ],
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false,
+          "serverName": null
+        },
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": {
+          "connectionReuse": true,
+          "path": "/NTYK",
+          "headers": null
+        },
+        "httpSettings": null,
+        "quicSettings": null
+      },
+      "mux": {
+        "enabled": true,
+        "concurrency": 8
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": null,
+      "mux": null
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": {
+          "type": "http"
+        }
+      },
+      "streamSettings": null,
+      "mux": null
+    }
+  ],
+  "dns": null,
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "proxy",
+        "ip": [
+          "0.0.0.0/0"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+port: 10809
+socks-port: 10808
+bind-address: "*"
+mode: Rule
+log-level: debug
+secret: ""
+
+experimental:
+  ignore-resolve-fail: true
+
+proxies:
+  - name: test
+    type: vmess
+    server: n4kr.google.com
+    port: 443
+    uuid: 3d1deab2-89f6-c1a7-18a9-207bf8effcc0
+    alterId: 0
+    cipher: aes-128-gcm
+    network: h2
+    tls: true
+    h2-opts:
+      host:
+        - n4kr.google.com
+      path: /NTYK
+
+proxy-groups:
+  - name: "load-balance"
+    type: load-balance
+    proxies:
+      - test
+    url: "http://google.com"
+    interval: 300
+
+rules:
+  - MATCH,load-balance

@@ -1,0 +1,35 @@
+{
+    "log": {
+        "access": "",
+        "error": "",
+        "loglevel": "debug"
+    },
+    "inbounds": [
+        {
+            "port": 23233,
+            "listen": "127.0.0.1",
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "3d1deab2-89f6-c1a7-18a9-207bf8effcc0",
+                        "alterId": 64
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/NTYK"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {}
+        }
+    ]
+}
